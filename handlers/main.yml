@@ -1,0 +1,4 @@
+- name: disable supervisor
+  systemd:
+    name: supervisor
+    enabled: false

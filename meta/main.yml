@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Nick Tunstall
+  description: Installs supervisor with full config control
+  company: Entanet
+
+  license: BSD
+
+  min_ansible_version: 2.5
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+
+  galaxy_tags:
+    - entanet
+    - supervisor
+    - process control system
+
+dependencies: []

@@ -1,0 +1,9 @@
+---
+
+- name: Transfer config files.
+  copy:
+    src: "{{ item }}"
+    dest: /etc/supervisor/conf.d/
+  with_fileglob:
+  - "{{ playbook_dir }}/files/supervisor/*.conf"
+ 
