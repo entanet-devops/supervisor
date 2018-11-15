@@ -1,7 +1,3 @@
 ---
 - include: install.yml
 - include: config.yml
-
-- name: Disable supervisor
-  notify: disable supervisor
-  when: supervisor_disable == true

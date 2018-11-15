@@ -1,5 +1,4 @@
 ---
-
 - name: Transfer config files.
   copy:
     src: "{{ item }}"

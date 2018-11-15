@@ -2,3 +2,5 @@
   apt: 
     name: supervisor 
     state: present
+  notify: disable supervisor
+  when: supervisor_disable == true
