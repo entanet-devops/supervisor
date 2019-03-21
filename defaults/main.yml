@@ -1,3 +1,17 @@
 ---
 
 supervisor_disable: true
+
+supervisor_commands:
+  artisan_commands: []
+  raw_commands: []
+
+artisan_commands_override: []
+raw_commands_override: []
+
+artisan_template: supervisor_artisan.conf.j2
+raw_template: supervisor_raw.conf.j2
+
+supervisor_command_user: supervisor
+supervisor_command_numprocs: 1
+app_directory: /change/me

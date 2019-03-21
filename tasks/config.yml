@@ -1,8 +1,30 @@
 ---
+- name: Check for supervisor_commands.yml
+  stat:
+    path: "{{ app_directory }}/supervisor/supervisor_commands.yml"
+  register: supervisor_commands_file
+
+- name: Include supervisor_commands.yml
+  include_vars:
+    file: "{{ app_directory }}/supervisor/supervisor_commands.yml"
+    name: supervisor_commands
+  when: supervisor_commands_file.stat.exists == True
+
+- name: Generate supervisor artisan configs
+  template:
+    src: supervisor_artisan.conf.j2
+    dest: "/etc/supervisor/conf.d/{{ item.cmd | default(item) | replace(':', '__') }}.conf"
+  with_items: "{{ supervisor_commands.artisan_commands + artisan_commands_override }}"
+
+- name: Generate supervisor raw configs
+  template:
+    src: supervisor_raw.conf.j2
+    dest: "/etc/supervisor/conf.d/{{ item.cmd | default(item) | replace(':', '__') }}.conf"
+  with_items: "{{ supervisor_commands.raw_commands + raw_commands_override }}"
+
 - name: Transfer config files.
   copy:
     src: "{{ item }}"
     dest: /etc/supervisor/conf.d/
   with_fileglob:
   - "{{ playbook_dir }}/files/supervisor/*.conf"
- 
