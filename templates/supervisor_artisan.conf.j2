@@ -1,6 +1,6 @@
 [program:{{ item.cmd | default(item) | replace(":", "__") }}]
 process_name=%(program_name)s_%(process_num)02d
-command=php {{ app_directory }}/artisan {{ item.cmd | default(item) }}
+command=php {{ app_directory }}/artisan {{ item.cmd | default(item) }} {{ item.flags | default('') }}
 autostart=true
 autorestart=true
 user={{ item.user | default(supervisor_command_user) }}
