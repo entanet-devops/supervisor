@@ -1,4 +1,4 @@
-[program:{{ item.cmd | default(item) | replace(":", "__") }}]
+[program:{{ item.cmd | default(item) | replace(":", "__") | replace(" ", "_") }}]
 process_name=%(program_name)s_%(process_num)02d
 command=php {{ app_directory }}/artisan {{ item.cmd | default(item) }} {{ item.flags | default('') }}
 autostart=true

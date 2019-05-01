@@ -13,13 +13,13 @@
 - name: Generate supervisor artisan configs
   template:
     src: supervisor_artisan.conf.j2
-    dest: "/etc/supervisor/conf.d/{{ item.cmd | default(item) | replace(':', '__') }}.conf"
+    dest: "/etc/supervisor/conf.d/{{ item.cmd | default(item) | replace(':', '__') | replace(' ', '_')}}.conf"
   with_items: "{{ supervisor_commands.artisan_commands | default([]) + artisan_commands_override }}"
 
 - name: Generate supervisor raw configs
   template:
     src: supervisor_raw.conf.j2
-    dest: "/etc/supervisor/conf.d/{{ item.cmd | default(item) | replace(':', '__') }}.conf"
+    dest: "/etc/supervisor/conf.d/{{ item.cmd | default(item) | replace(':', '__') | replace(' ', '_') }}.conf"
   with_items: "{{ supervisor_commands.raw_commands | default([]) + raw_commands_override }}"
 
 - name: Transfer config files.
