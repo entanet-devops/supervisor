@@ -22,9 +22,21 @@
     dest: "/etc/supervisor/conf.d/{{ item.cmd | default(item) | replace(':', '__') | replace(' ', '_') }}.conf"
   with_items: "{{ supervisor_commands.raw_commands | default([]) + raw_commands_override }}"
 
-- name: Transfer config files.
-  copy:
-    src: "{{ item }}"
-    dest: /etc/supervisor/conf.d/
-  with_fileglob:
-  - "{{ playbook_dir }}/files/supervisor/*.conf"
+- name: Check if supervisor templates directory exists
+  stat:
+    path: "{{ playbook_dir }}/files/supervisor"
+  register: supervisor_files_exist
+
+- name: Transfer config files
+  block:   
+    - name: Copy files
+      copy:
+        src: "{{ item }}"
+        dest: /etc/supervisor/conf.d/
+      with_fileglob:
+      - "{{ playbook_dir }}/files/supervisor/*.conf"
+  rescue: 
+    - name: Only error if files actually exist to copy
+      fail:
+        msg: "Failed to copy {{ playbook_dir }}/files/supervisor/*.conf"
+      when: supervisor_files_exist.stat.exists
