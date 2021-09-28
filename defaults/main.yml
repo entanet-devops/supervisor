@@ -15,3 +15,12 @@ raw_template: supervisor_raw.conf.j2
 supervisor_command_user: supervisor
 supervisor_command_numprocs: 1
 app_directory: /change/me
+
+logrotate_conf_dir: "/etc/logrotate.d/"
+logrotate_scripts:
+  - name: supervisor_logrotation
+    path: "/apps/middleman/storage/logs/supervisor*.log"
+    options:
+      - daily
+      - rotate 7
+      - dateext
