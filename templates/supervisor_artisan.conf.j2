@@ -3,6 +3,7 @@ process_name=%(program_name)s_%(process_num)02d
 command=php {{ app_directory }}/artisan {{ item.cmd | default(item) }} {{ item.flags | default('') }}
 autostart=true
 autorestart=true
+startsecs={{ start_secs }}
 startretries={{ start_retries }}
 user={{ item.user | default(supervisor_command_user) }}
 numprocs={{ item.numprocs | default(supervisor_command_numprocs) }}
