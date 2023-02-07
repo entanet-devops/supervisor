@@ -2,8 +2,8 @@
 
 supervisor_disable: true
 
-start_secs: 5
-start_retries: 3
+start_secs: 60
+start_retries: 10
 
 supervisor_commands:
   artisan_commands: []
