@@ -2,7 +2,7 @@
 
 supervisor_disable: true
 
-start_secs: 60
+start_secs: 5
 start_retries: 10
 
 supervisor_commands:
