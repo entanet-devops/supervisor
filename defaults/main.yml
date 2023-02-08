@@ -2,6 +2,9 @@
 
 supervisor_disable: true
 
+start_secs: 3
+start_retries: 9
+
 supervisor_commands:
   artisan_commands: []
   raw_commands: []
