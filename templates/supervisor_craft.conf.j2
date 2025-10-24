@@ -1,0 +1,11 @@
+[program:{{ item.name | default(item) }}]
+process_name=%(program_name)s_%(process_num)02d
+command=php {{ app_directory }}/craft {{ item.cmd | default(item) }} {{ item.flags | default('') }}
+autostart=true
+autorestart=true
+startsecs={{ start_secs }}
+startretries={{ start_retries }}
+user={{ item.user | default(supervisor_command_user) }}
+numprocs={{ item.numprocs | default(supervisor_command_numprocs) }}
+redirect_stderr=true
+stdout_logfile={{ app_directory }}/storage/logs/supervisor-%(program_name)s-%(process_num)02d.log

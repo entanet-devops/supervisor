@@ -22,6 +22,12 @@
     dest: "/etc/supervisor/conf.d/{{ item.cmd | default(item) | replace(':', '__') | replace(' ', '_') }}.conf"
   with_items: "{{ supervisor_commands.raw_commands | default([]) + raw_commands_override }}"
 
+- name: Generate supervisor craft configs
+  template:
+    src: supervisor_craft.conf.j2
+    dest: "/etc/supervisor/conf.d/{{ item.name | default(item) }}.conf"
+  with_items: "{{ supervisor_commands.craft_commands | default([]) + craft_commands_override }}"
+
 - name: Check if supervisor templates directory exists
   stat:
     path: "{{ playbook_dir }}/files/supervisor"
