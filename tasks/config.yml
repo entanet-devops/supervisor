@@ -8,7 +8,7 @@
   include_vars:
     file: "{{ app_directory }}/supervisor/supervisor_commands.yml"
     name: supervisor_commands
-  when: supervisor_commands_file.stat.exists == True
+  when: supervisor_commands_file.stat.exists == true
 
 - name: Generate supervisor artisan configs
   template:
