@@ -8,7 +8,7 @@
   include_vars:
     file: "{{ app_directory }}/supervisor/supervisor_commands.yml"
     name: supervisor_commands
-  when: supervisor_commands_file.stat.exists == True
+  when: supervisor_commands_file.stat.exists == true
 
 - name: Generate supervisor artisan configs
   template:
@@ -21,6 +21,12 @@
     src: supervisor_raw.conf.j2
     dest: "/etc/supervisor/conf.d/{{ item.cmd | default(item) | replace(':', '__') | replace(' ', '_') }}.conf"
   with_items: "{{ supervisor_commands.raw_commands | default([]) + raw_commands_override }}"
+
+- name: Generate supervisor craft configs
+  template:
+    src: supervisor_craft.conf.j2
+    dest: "/etc/supervisor/conf.d/{{ item.name | default(item) }}.conf"
+  with_items: "{{ supervisor_commands.craft_commands | default([]) + craft_commands_override }}"
 
 - name: Check if supervisor templates directory exists
   stat:
